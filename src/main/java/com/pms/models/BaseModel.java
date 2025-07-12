@@ -8,7 +8,6 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Getter
-@MappedSuperclass
 public abstract class BaseModel {
 
     @Id

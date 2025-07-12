@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
-@Entity
 public class ParkingLot extends BaseModel {
 
     @Setter

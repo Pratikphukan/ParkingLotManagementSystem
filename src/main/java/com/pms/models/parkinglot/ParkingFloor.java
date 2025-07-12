@@ -7,7 +7,6 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-@Entity
 public class ParkingFloor extends BaseModel {
 
     private Integer floorNumber;
