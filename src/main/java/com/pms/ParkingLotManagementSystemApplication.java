@@ -8,10 +8,6 @@ import com.pms.models.Operator;
 import com.pms.models.parkinglot.Gate;
 import com.pms.models.vehicle.Vehicle;
 import com.pms.models.vehicle.VehicleType;
-import com.pms.repositories.ParkingLotRepository;
-import com.pms.repositories.TicketRepository;
-import com.pms.services.ParkingLotService;
-import com.pms.services.TicketService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
