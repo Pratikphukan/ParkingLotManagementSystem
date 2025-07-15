@@ -2,10 +2,12 @@ package com.pms.models.payment;
 
 import com.pms.models.BaseModel;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 public class Payment extends BaseModel {
 
     private String transactionId;
@@ -19,8 +21,4 @@ public class Payment extends BaseModel {
     private PaymentMode paymentMode;
 
     private Invoice invoice;
-
-    public Payment(Long id) {
-        super(id);
-    }
 }

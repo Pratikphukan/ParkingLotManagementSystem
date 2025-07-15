@@ -1,9 +1,6 @@
 package com.pms.controllers;
 
-import com.pms.dtos.CreateParkingLotRequestDto;
-import com.pms.dtos.CreateParkingLotResponseDto;
-import com.pms.dtos.ResponseDto;
-import com.pms.dtos.ResponseStatusDto;
+import com.pms.dtos.*;
 import com.pms.models.parkinglot.ParkingLot;
 import com.pms.services.ParkingLotService;
 
@@ -11,22 +8,36 @@ public class ParkingLotController {
 
     private static ParkingLotController instance;
 
-    private ParkingLotService parkingLotService;
+    private final ParkingLotService parkingLotService;
 
-    private ParkingLotController(ParkingLotService parkingLotService) {
-        this.parkingLotService = parkingLotService;
+    private ParkingLotController() {
+        this.parkingLotService = ParkingLotService.getInstance();
     }
 
-    public static ParkingLotController getInstance(ParkingLotService parkingLotService) {
+    public static ParkingLotController getInstance() {
         if (instance == null) {
-            instance = new ParkingLotController(parkingLotService);
+            instance = new ParkingLotController();
         }
         return instance;
     }
 
     public ResponseDto<CreateParkingLotResponseDto> createParkingLot(CreateParkingLotRequestDto request) {
-        ParkingLot parkingLot = parkingLotService.createParkingLot(request.getAddress());
-        CreateParkingLotResponseDto response = new CreateParkingLotResponseDto(parkingLot);
-        return new ResponseDto<>(ResponseStatusDto.SUCCESS, "Parking lot created successfully", response);
+        if (request.getNoOfParkingFloors() < 2) {
+            return new ResponseDto<>(ResponseStatus.FAILURE, "Parking lot must have at least 2 floors", null);
+        }
+        ParkingLot parkingLot = parkingLotService.createParkingLot(request);
+        return new ResponseDto<>(ResponseStatus.SUCCESS,
+                "Parking lot created successfully",
+                new CreateParkingLotResponseDto(parkingLot));
+    }
+
+    public ResponseDto<UpdateParkingLotResponseDto> updateParkingLot(UpdateParkingLotRequestDto request) {
+        ParkingLot updatedParkingLot = parkingLotService.updateParkingLot(request);
+        if (updatedParkingLot == null) {
+            return new ResponseDto<>(ResponseStatus.FAILURE, "Parking lot not found with ID: " + request.getParkingLotId(), null);
+        }
+        return new ResponseDto<>(ResponseStatus.SUCCESS,
+                "Parking lot updated successfully",
+                new UpdateParkingLotResponseDto(updatedParkingLot));
     }
 }

@@ -1,4 +1,4 @@
-package com.pms.strategies.feecalculationstrategy;
+package com.pms.services.strategies.feecalculationstrategy;
 
 public interface ParkingFeesCalculationStrategy {
 

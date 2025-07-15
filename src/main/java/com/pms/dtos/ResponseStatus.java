@@ -3,22 +3,22 @@ package com.pms.dtos;
 import lombok.Getter;
 
 @Getter
-public enum ResponseStatusDto {
+public enum ResponseStatus {
 
     SUCCESS("Success"),
     FAILURE("Failure"),
     ERROR("Error");
 
-    private final String status;
+    private final String responseStatus;
 
-    ResponseStatusDto(String status) {
-        this.status = status;
+    ResponseStatus(String responseStatus) {
+        this.responseStatus = responseStatus;
     }
 
     @Override
     public String toString() {
         return "ResponseStatusDto{" +
-                "status='" + status + '\'' +
+                "status='" + responseStatus + '\'' +
                 '}';
     }
 }

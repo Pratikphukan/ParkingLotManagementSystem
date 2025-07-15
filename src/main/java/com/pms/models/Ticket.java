@@ -26,8 +26,4 @@ public class Ticket extends BaseModel {
     private String ownerName;
 
     private Operator operator;
-
-    public Ticket(Long id) {
-        super(id);
-    }
 }

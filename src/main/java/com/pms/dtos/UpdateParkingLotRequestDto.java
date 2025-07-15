@@ -1,6 +1,5 @@
 package com.pms.dtos;
 
-import com.pms.models.Ticket;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,7 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class GenerateTicketResponseDto {
+public class UpdateParkingLotRequestDto {
 
-    private Ticket ticket;
+    private Long parkingLotId;
+
+    private String address;
 }

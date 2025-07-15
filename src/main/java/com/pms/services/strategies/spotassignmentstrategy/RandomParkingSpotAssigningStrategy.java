@@ -1,4 +1,4 @@
-package com.pms.strategies.spotassignmentstrategy;
+package com.pms.services.strategies.spotassignmentstrategy;
 
 import com.pms.models.parkinglot.*;
 import com.pms.models.vehicle.VehicleType;

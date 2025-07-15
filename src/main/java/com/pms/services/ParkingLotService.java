@@ -1,30 +1,46 @@
 package com.pms.services;
 
+import com.pms.dtos.CreateParkingLotRequestDto;
+import com.pms.dtos.UpdateParkingLotRequestDto;
+import com.pms.models.parkinglot.ParkingFloor;
 import com.pms.models.parkinglot.ParkingLot;
 import com.pms.repositories.ParkingLotRepository;
 
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.ArrayList;
 
 public class ParkingLotService {
 
     private static ParkingLotService instance;
 
-    private ParkingLotRepository parkingLotRepository;
+    private final ParkingLotRepository parkingLotRepository;
 
-    private ParkingLotService(ParkingLotRepository parkingLotRepository) {
-        this.parkingLotRepository = parkingLotRepository;
+    private ParkingLotService() {
+        this.parkingLotRepository = ParkingLotRepository.getInstance();
     }
 
-    public static ParkingLotService getInstance(ParkingLotRepository parkingLotRepository) {
+    public static ParkingLotService getInstance() {
         if (instance == null) {
-            instance = new ParkingLotService(parkingLotRepository);
+            instance = new ParkingLotService();
         }
         return instance;
     }
 
-    public ParkingLot createParkingLot(String address) {
-        ParkingLot parkingLot = new ParkingLot(ThreadLocalRandom.current().nextLong(1_000_000_000L, 10_000_000_000L),
-                address);
+    public ParkingLot createParkingLot(CreateParkingLotRequestDto createParkingLotRequestDto) {
+        ParkingLot parkingLot = new ParkingLot();
+        parkingLot.setParkingFloors(new ArrayList<>());
+        for (int i = 0; i < createParkingLotRequestDto.getNoOfParkingFloors(); i++) {
+            parkingLot.getParkingFloors().add(new ParkingFloor());
+        }
+        parkingLot.setAddress(createParkingLotRequestDto.getAddress());
         return parkingLotRepository.save(parkingLot);
+    }
+
+    public ParkingLot updateParkingLot(UpdateParkingLotRequestDto updateParkingLotRequestDto) {
+        ParkingLot parkingLot = parkingLotRepository.getById(updateParkingLotRequestDto.getParkingLotId());
+        if (parkingLot == null) {
+            return null;
+        }
+        parkingLot.setAddress(updateParkingLotRequestDto.getAddress());
+        return parkingLotRepository.update(parkingLot);
     }
 }

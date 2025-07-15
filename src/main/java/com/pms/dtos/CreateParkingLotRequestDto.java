@@ -1,16 +1,15 @@
 package com.pms.dtos;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
+@AllArgsConstructor
 public class CreateParkingLotRequestDto {
 
     private String address;
 
     private Integer noOfParkingFloors;
-
-    public CreateParkingLotRequestDto(String address, Integer noOfParkingFloors) {
-        this.address = address;
-        this.noOfParkingFloors = noOfParkingFloors;
-    }
 }

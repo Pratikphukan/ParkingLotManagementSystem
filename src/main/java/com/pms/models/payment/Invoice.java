@@ -5,11 +5,13 @@ import com.pms.models.Operator;
 import com.pms.models.Ticket;
 import com.pms.models.parkinglot.Gate;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
+@Setter
 public class Invoice extends BaseModel {
 
     private Ticket ticket;
@@ -25,8 +27,4 @@ public class Invoice extends BaseModel {
     private Gate exitGate;
 
     private List<Payment> payments;
-
-    public Invoice(Long id) {
-        super(id);
-    }
 }

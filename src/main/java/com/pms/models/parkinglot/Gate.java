@@ -5,19 +5,17 @@ import com.pms.models.GateStatus;
 import com.pms.models.GateType;
 import com.pms.models.Operator;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
-public abstract class Gate extends BaseModel {
+@Setter
+public class Gate extends BaseModel {
 
-    protected Integer gateNumber;
+    private Integer gateNumber;
 
-    protected Operator operator; //operator who manages the gate and it might change over time
+    private Operator operator; //operator who manages the gate and it might change over time
 
-    protected GateType gateType;
+    private GateType gateType;
 
-    protected GateStatus gateStatus;
-
-    public Gate(Long id) {
-        super(id);
-    }
+    private GateStatus gateStatus;
 }

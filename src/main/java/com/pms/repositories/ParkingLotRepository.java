@@ -9,7 +9,8 @@ public class ParkingLotRepository {
 
     private static ParkingLotRepository instance;
 
-    private Map<Long, ParkingLot> parkingLotStore = new HashMap<>();
+    private final Map<Long, ParkingLot> parkingLotStore = new HashMap<>();
+
     private Long lastCount = 0L;
 
     private ParkingLotRepository() {
@@ -25,11 +26,19 @@ public class ParkingLotRepository {
 
     public ParkingLot save(ParkingLot parkingLot) {
         lastCount += 1;
+        parkingLot.setId(lastCount);
         parkingLotStore.put(lastCount, parkingLot);
         return parkingLot;
     }
 
     public ParkingLot getById(Long id) {
-        return parkingLotStore.get(lastCount);
+        if (parkingLotStore.containsKey(id))
+            return parkingLotStore.get(id);
+        return null;
+    }
+
+    public ParkingLot update(ParkingLot parkingLot) {
+        parkingLotStore.put(parkingLot.getId(), parkingLot);
+        return parkingLot;
     }
 }

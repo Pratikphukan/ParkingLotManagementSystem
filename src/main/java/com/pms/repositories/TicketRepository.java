@@ -10,7 +10,7 @@ public class TicketRepository {
     private static TicketRepository instance;
 
     private Long lastCount = 0L;
-    private Map<Long, Ticket> ticketStore = new HashMap<>();
+    private final Map<Long, Ticket> ticketStore = new HashMap<>();
 
     private TicketRepository() {
         // Private constructor to prevent instantiation

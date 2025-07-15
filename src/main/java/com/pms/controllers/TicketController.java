@@ -3,22 +3,23 @@ package com.pms.controllers;
 import com.pms.dtos.GenerateTicketRequestDto;
 import com.pms.dtos.GenerateTicketResponseDto;
 import com.pms.dtos.ResponseDto;
-import com.pms.dtos.ResponseStatusDto;
+import com.pms.dtos.ResponseStatus;
+import com.pms.models.Ticket;
 import com.pms.services.TicketService;
 
 public class TicketController {
 
     private static TicketController instance;
 
-    private TicketService tiketService;
+    private final TicketService ticketService;
 
-    private TicketController(TicketService ticketService) {
-        this.tiketService = ticketService;
+    private TicketController(String spotAssignmentStrategy) {
+        this.ticketService = TicketService.getInstance(spotAssignmentStrategy);
     }
 
-    public static TicketController getInstance(TicketService ticketService) {
+    public static TicketController getInstance(String spotAssignmentStrategy) {
         if (instance == null) {
-            instance = new TicketController(ticketService);
+            instance = new TicketController(spotAssignmentStrategy);
         }
         return instance;
     }
@@ -26,6 +27,9 @@ public class TicketController {
     public ResponseDto<GenerateTicketResponseDto> generateTicket(GenerateTicketRequestDto request) {
         // Logic to generate a ticket
         // This is a placeholder for the actual implementation
-        return new ResponseDto<>(ResponseStatusDto.SUCCESS, "Ticket generated successfully", null);
+        Ticket ticket = ticketService.generateTicket(request.getParkingLotId(), request.getVehicle(), request.getEntryGate());
+        return new ResponseDto<>(ResponseStatus.SUCCESS,
+                "Ticket generated successfully",
+                new GenerateTicketResponseDto(ticket));
     }
 }
